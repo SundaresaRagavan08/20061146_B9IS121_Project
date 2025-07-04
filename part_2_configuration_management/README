@@ -1,0 +1,28 @@
+# Configuration Management with Ansible
+
+### 1. **Local Control via Ansible**
+Ansible is installed and run on your local machine. It uses **SSH** to connect to the remote EC2 instance.
+
+### 2. **Inventory Configuration**
+The file `inventory.ini` defines the target EC2 instance using its public IP address and SSH key. This tells Ansible where to connect and how.
+
+### 3. **Playbook Execution**
+The Ansible playbook install_docker.yml is run with the command:
+```bash
+ansible-playbook -i inventory.ini install_docker.yml
+```
+
+### 4. **Tasks Run on EC2**
+
+- Ensures the latest package list is fetched before installing anything.
+- Installs the Docker engine from Ubuntu's official repositories.
+- Ensures Docker starts immediately and also on future reboots.
+- Adds the default ubuntu user to the Docker group so it can run Docker without sudo.
+
+### 5. **To Verify**
+
+```bash
+ssh -i ~/.ssh/ec2key.pem ubuntu@18.201.41.54
+docker --version
+docker ps
+```
